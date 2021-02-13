@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import NotificationIcon from '@material-ui/icons/Notifications'
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SearchIcon from '@material-ui/icons/Search';
+import StarIcon from '@material-ui/icons/Grade';
 import './render.html.style.css';
 
 class RenderHTML extends Component {
@@ -188,31 +189,9 @@ class RenderHTML extends Component {
                                          <div className={'rating'}>
                                              <h5>1</h5>
                                              <div className={'rating-star'}>
-                                                 <h5>⭐</h5>
-                                                 <span>4</span>
-                                             </div>
-                                             <h6>easy</h6>
-                                         </div>
-                                         <div className={'rating'}>
-                                             <h5>1</h5>
-                                             <div className={'rating-star'}>
-                                                 <h5>⭐</h5>
-                                                 <span>4</span>
-                                             </div>
-                                             <h6>easy</h6>
-                                         </div>
-                                         <div className={'rating'}>
-                                             <h5>1</h5>
-                                             <div className={'rating-star'}>
-                                                 <h5>⭐</h5>
-                                                 <span>4</span>
-                                             </div>
-                                             <h6>easy</h6>
-                                         </div>
-                                         <div className={'rating'}>
-                                             <h5>1</h5>
-                                             <div className={'rating-star'}>
-                                                 <h5>⭐</h5>
+                                                 <IconButton button>
+                                                     <StarIcon/>
+                                                 </IconButton>
                                                  <span>4</span>
                                              </div>
                                              <h6>easy</h6>
