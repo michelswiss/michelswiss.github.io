@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+.rowContainer {
+    overflow-x: hidden;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.leftSide {
+    width: 6rem;
+    background: blue;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0;
+/*    add animation here */
+}
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+    padding: 25px 25px 25px 0;
+}
+.header {
+    background: #141834;
+    background: radial-gradient(circle, #141834 0%, #13162f 100%);
+    box-shadow: 0 16px 12px #0e0e23;
+    width: 100%;
+    padding: 0 30px;
+    animation: top 1s both;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    font-size: 15px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+/* tab section */
+.tabPanel {
+    background: lightblue;
+}
+.inboxContainer {
+    order-right: 1px solid var(--border-color);
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex-shrink: 0;
+}
+.inbox {
+    overflow: auto;
+}
+.inboxDepartment {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    border-left: 4px solid;
+}
+.chatSection {
+    background: gray;
+}
+.userDetail {
+    background: green;
+    /*max-width: calc(100% / 20);*/
+    /*max-width: 18% !important;*/
+}
+
+/* ---------------------------------------------------- */
+.message {
+    padding: 30px;
+    background-color: #f1f2f7;
+    border-bottom: 1px solid;
+    align-items: center;
+    transition: .4s ease;
+}
+.message label:before {
+    content: "";
+    display: flex;
+    width: 35px;
+    height: 35px;
+    border: 2px solid;
+    margin-right: 15px;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='28' viewBox='0 0 24 24' fill='none' stroke='%23a1a4b9' stroke-width='4' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check'%3e%3cpath d='M20 6L9 17l-5-5'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+.selectedMessage {
+    background-color: #fff;
+}
+.messageChoice {
+    display: none;
+}
+.messageContent {
+
+}
+.messageTitle {
+    font-weight: 600;
+    font-size: 14px;
+}
+.messageDate {
+    font-size: 11px;
+    color: gray;
+    font-weight: 600;
+    margin-top: 5px;
+}
+.member {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.memberMail {
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+}
+.anim-y {
+    animation: slideUp .6s both;
+}
+.anim-y:nth-child(2) {
+    animation-delay: .28s;
+}
