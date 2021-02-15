@@ -5,6 +5,7 @@ function generateTask(sortId) {
     let fakeResult = [];
     for(let task = 0; task < faker.random.number(40); task++) {
         let sort = task % 3 ? sortId : uuid();
+        let lorem = faker.lorem.text();
         function setFile() {
             if (sort === sortId) {
                 return faker.random.number(10) < faker.random.number(10)
@@ -13,7 +14,7 @@ function generateTask(sortId) {
         fakeResult.push({
             id: sort,
             file: setFile(),
-            text: faker.lorem.text().length >= 1 ? faket.lorem.text() : "Ok. please wait!",
+            text: lorem >= 1 ? lorem : "Ok. please wait!",
             date: new Date()
         });
     }

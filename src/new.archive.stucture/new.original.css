@@ -1,0 +1,45 @@
+.container-wrapper {
+    display: flex;
+}
+.drawer {
+    background-color: red;
+    width: 240px;
+    height: 100vh;
+}
+.app {
+
+}
+.header {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #f8f8f8;
+    align-items: center;
+    padding: 0 20px;
+}
+.author-name {
+    margin-right: auto;
+    background-color: green;
+}
+.author-settings {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-left: auto;
+}
+.avatar {
+    border-radius: 50%;
+    background-color: red;
+}
+.author-notification {
+    background-color: blue;
+    padding: 20px;
+}
+.app-container {
+    display: flex;
+    /* flex-direction: column; */
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+

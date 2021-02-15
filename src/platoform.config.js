@@ -50,4 +50,9 @@
   * 
   * @structure
   * create structure page and knife this new components
+  * 
+  * @stateparam
+  * 
+  * Create chat base for each of chat section
+  * [ click rating stars and automaticly push message this chat section ];
   */

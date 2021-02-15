@@ -1,3 +1,6 @@
+body {
+    font-family: "SFProDisplay-Medium","SFProDisplay-Regular",sans-serif !important
+}
 .wrapper {
     max-width: 1600px;
     background-color: #fefefe;
@@ -5,6 +8,7 @@
     height: 100vh;
     overflow: hidden;
     margin: 0 auto;
+    padding: 0px 2px 0px 10px;
 }
 .drawer {
     width: 6rem;
@@ -14,6 +18,7 @@
     align-items: center;
     padding: 117px 0 40px;
     animation: left 1s 0s both;
+    background-color: red;
 }
 .drawer svg {
     width: 24px;
@@ -248,7 +253,14 @@ html {
     margin: 0 auto;
     overflow: hidden;
 }
-
+.section-nav {
+    padding: 10px 10px !important;
+}
+.section-nav h3 {
+    font-size: 2.1rem;
+    text-transform: uppercase;
+    font-family: "SFProDisplay-Semibold","SFProDisplay-Regular",sans-serif;
+}
 .wrapper {
     width: 100%;
     display: flex;
@@ -326,22 +338,35 @@ html {
 .msg {
     display: flex;
     align-items: center;
-    padding: 20px;
     cursor: pointer;
     /*transition: 0.2s;*/
     position: relative;
-    /*padding: 30px;*/
-    background-color: #f1f2f7;
-    border-bottom: 1px solid var(--border-color);
+    padding: 20px;
     /*display: flex;*/
     /*align-items: center;*/
-    transition: 0.4s ease;
+    transition: 0.3s ease;
+    background-color: #fff;
+    border: 2px solid#f8f8f8;
 }
 .msg:hover {
-    background-color: var(--msg-hover-bg); }
+    background-color: #f8f8f8;
+    border-color: #cecece;
+    /* background-color: var(--msg-hover-bg);  */
+}
+.msg.active:hover {
+    background-color: #21b94c;
+    border-color: #00a830;
+}
 .msg.active {
-    background: #00b5339e;
-    border-left: 4px solid #00b533
+    background: #26c553;
+    border-left: 4px solid #00b533;
+}
+.msg.active .msg-detail .msg-message,
+.msg.active .msg-date, 
+.msg.active .msg-username {
+    font-weight: 500;
+    line-height: 1.2;
+    color: #fff !important;
 }
 .msg.online:before {
     content: "";
@@ -357,7 +382,8 @@ html {
 .msg-username {
     margin-bottom: 4px;
     font-weight: 600;
-    font-size: 15px; }
+    font-size: 15px; 
+}
 
 .msg-detail {
     overflow: hidden; }
@@ -365,7 +391,10 @@ html {
 .msg-content {
     font-weight: 500;
     font-size: 13px;
-    display: flex; }
+    display: flex; 
+    align-items: center;
+    justify-content: space-evenly;
+}
 
 .msg-message {
     white-space: nowrap;
@@ -379,25 +408,8 @@ html {
     margin-left: 3px; }
 .msg-date:before {
     content: "тАв";
-    margin-right: 2px; }
-
-.add {
-    position: sticky;
-    bottom: 25px;
-    background-color: var(--theme-color);
-    width: 60px;
-    height: 60px;
-    border: 0;
-    border-radius: 50%;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-plus'%3e%3cpath d='M12 5v14M5 12h14'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: 50%;
-    background-size: 28px;
-    box-shadow: 0 0 16px var(--theme-color);
-    margin: auto auto -55px;
-    flex-shrink: 0;
-    z-index: 1;
-    cursor: pointer; }
+    margin-right: 2px; 
+}
 
 .overlay {
     position: sticky;
@@ -421,11 +433,21 @@ html {
     justify-content: space-between;
     width: 100%;
     background-color: #fff;
-    box-shadow: 9px -16px 10px 10px;
+    border: 1px solid #f8f8f8;
 }
 .chat-area-title {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    padding: 10px 4px;
+}
+.chat-area-title-text {
+    width: 50%;
+    text-align: left;
+    margin: auto;
+    border-right: 1px solid #f8f8f8;
+    padding-right: 10px;
+    font-family: "SFProDisplay-Bold","SFProDisplay-Regular",sans-serif;
 }
 .chat-area-profile {
     width: 32px;
@@ -439,9 +461,20 @@ html {
 .chat-area-main {
     flex-grow: 1;
 }
+.notification {
+    position: relative;
+}
+.notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
 .chat-area-slider {
     display: flex;
-    flex-grow: 1;
     max-width: 100%;
     align-items: center;
     align-content: center;
@@ -741,56 +774,65 @@ html {
 
 .chat-area-group {
     flex-shrink: 0;
-    display: flex; }
-.chat-area-group * {
-    border: 2px solid var(--theme-bg-color); }
-.chat-area-group * + * {
-    margin-left: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-right: 20px;
+    margin: auto;
+}
+.chat-area-group h6 {
+    padding-right: 15px;
 }
 .chat-area-group span {
-    width: 32px;
-    height: 32px;
-    background-color: var(--button-bg-color);
-    color: var(--theme-color);
+    box-shadow: 0 0 15px rgb(255 180 54 / 42%);
+    width: 35px;
+    height: 35px;
+    color: #fff;
     border-radius: 50%;
+    border: none;
+    outline: none;
+    background: linear-gradient(269.93deg,#ffb436 -7.99%,#f7798b 101.05%);
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    font-weight: 500;
 }
 
 .tab-panel {
     position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
 }
 .tab-control {
     width: 100%;
     padding: 2px;
 }
 .tab-panel-control {
-    background-color: #fff;
+    background-color: #f8f8f8;
     color: black;
     display: flex;
     width: 100%
 }
 .tab-item {
-    border-bottom: 3px solid #fff;
+    border-bottom: 2px solid rgba(0,0,0,.1);
     width: 50%;
     text-transform: uppercase;
-    margin: 10px;
-    padding: 15px 0;
-    padding-bottom: 10px;
+    margin: 10px 0;
+    padding: 15px 0 10px;
     text-align: center;
     cursor: pointer;
+    color: rgba(0,0,0,.3);
 /*    #00b533 green*/
 /*    ffb436 red */
 /*    de1e3a chat admin*/
 /*    fafafa user chat message */
 /*    898989 user file icon*/
 }
-.tab-item:hover, .tab-item.active {
-    border-bottom: 3.4px solid #00b533;
+.tab-item.active {
+    border-bottom: 2px solid #00b533;
     transition: .1s all ease;
+    color: #000;
 }
 .search-user {
     display: flex;
@@ -798,7 +840,10 @@ html {
     align-items: center;
     justify-content: space-evenly;
     padding-bottom: 10px;
-    border-bottom: 3px solid lightgray;
+    background-color: #f8f8f8;
+}
+.search-user button {
+    background-color: #efefef;
 }
 .search-user input {
     padding: 10px;
