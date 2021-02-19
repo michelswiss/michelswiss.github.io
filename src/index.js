@@ -6,7 +6,11 @@ import './index.css';
  *  import App from './App';
  *  - import after UI version completed
  */
-import App from './new.archive.stucture/App';
+/**
+ * import App from './new.archive.stucture/App';
+ * UI theme updated 18.02.2021 - 11:36
+ */
+import App from './architecture.directory/App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

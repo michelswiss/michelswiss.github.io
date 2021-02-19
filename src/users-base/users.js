@@ -66,7 +66,7 @@ function createFakeUser(count) {
                     messages: generateTask(userId)
                 }
             ],
-            support: userId % 3 ? generateTask(userId) : false
+            support: faker.random.number(32) % 3 ? generateTask(userId) : false
             /* tasks: [
                 {
                     number: "5",

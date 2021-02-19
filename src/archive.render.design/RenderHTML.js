@@ -30,10 +30,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import SearchIcon from '@material-ui/icons/Search';
 import Slides from './Slide';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import 'bootstrap/dist/css/bootstrap.css';
-import './new.original.css';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import CoursesIcon from '@material-ui/icons/ViewCarousel';
 import ChatIcon from '@material-ui/icons/Sms';
@@ -57,8 +54,27 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import StarIcon from '@material-ui/icons/Grade';
-import ListSlider from './ListSlider';
-import './slider.css';
+import ListSlider from './ListSlide';
+import CameraIcon from '@material-ui/icons/LinkedCamera';
+import GalleryIcon from '@material-ui/icons/Image';
+import AddCircleIcon from '@material-ui/icons/AddCircleOutline';
+import SendFileIcon from '@material-ui/icons/Description';
+import EmojiIcon from '@material-ui/icons/Mood';
+// import dataEmoji from 'emoji-mart/data/google.json';
+// import { Picker } from "emoji-mart";
+// import "emoji-mart/css/emoji-mart.css";
+/*
+
+<Picker
+    onSelect={this.savePalette}
+    title={'Pick a Palette Emoji'}
+    set={'google'}
+    data={dataEmoji}
+/>
+
+emoji.native
+*/
+import Skeleton from '@material-ui/lab/Skeleton';
 import './skeleton.css';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -157,16 +173,24 @@ const styles = theme => ({
         }),
         '& .row': {
             width: '100vw',
+            display: 'block',
+            [theme.breakpoints.up('md')]: {
+                display: 'flex'
+            },
             '& .tab-section-control': {
                 marginLeft: '10px',
-                maxWidth: '100% !important',
+                maxWidth: '90% !important',
                 [theme.breakpoints.up('md')]: {
-                    maxWidth: '30% !important'
+                    maxWidth: '25% !important'
                 },
                 borderRight: '2px solid #f8f8f8'
             },
             '& .col-md-5': {
                 // backgroundColor: 'green !important',
+                maxWidth: '100% !important',
+                [theme.breakpoints.up('md')]: {
+                    width: '41% !important',
+                },
                 '& .chat-area-container': {
                     overflow: 'hidden'
                 }
@@ -198,7 +222,7 @@ const styles = theme => ({
             display: 'flex',
             alignItems: 'center',
             alignContent: 'center',
-            justifyContent: 'space-around',
+            justifyContent: 'center',
             '& button': {
                 width: '50%'
             }
@@ -250,7 +274,11 @@ const styles = theme => ({
     listUser: {
         height: '66vh',
         overflowY: 'auto',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
+        /* width: '55vw',
+        [theme.breakpoints.up('md')]: {
+            width: '75vw'
+        } */
     },
     listUserItem: {
         background: '#fff',
@@ -366,6 +394,83 @@ const styles = theme => ({
     },
     gridListStepperButton: {
         border: '2px solid #f8f8f8'
+    },
+    // chat footer section jss
+    headerStatus: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'sticky',
+        top: 0,
+        left: 0,
+        zIndex: 2,
+        padding: '1px',
+        border: '2px solid #fff',
+        background: theme.palette.background.paper,
+        '& .status-text': {
+            width: '50%',
+            textAlign: 'left',
+            margin: '5px',
+            borderLeft: '2.5px solid #00b533',
+            height: '35px',
+            paddingLeft: '15px',
+            overflow: 'auto'
+        },
+        '& .status-bar': {
+            width: '50%',
+            display: 'flex',
+            flexShrink: 0,
+            marginRight: '10px'
+        }        
+    },
+    statusBar: {
+        marginLeft: 'auto',
+        border: 'none',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '13px',
+        fontWeight: 500,
+        height: '35px',
+        width: '35px',
+        backgroundColor: 'yellow'
+    },
+    chatAreaMainContainer: {
+        flexGrow: 1
+    },
+    chatAreaFooterForm: {
+        display: 'flex',
+        borderTop: '2px solid #eef2f4',
+        width: '100%',
+        padding: '10px 20px',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#fff',
+        position: 'sticky',
+        bottom: 0,
+        left: 0,
+        '& .chat-footer-content': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            '& .chat-footer-item': {
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: '10px'
+            },
+            '& .chat-emoji': {
+                marginLeft: '20px'
+            }
+        },
+        '& .chat-footer-input': {
+            width: '80%',
+        }
+    },
+    chatInput: {
+        width: '100%',
+        marginLeft: '10px'
     }
 });
 
@@ -439,8 +544,10 @@ class RenderHTML extends Component {
         const { classes, messages } = this.props;
         const { panel, drawer, filter} = this.state;
         return (
-            <div className={`container-wrapper ${classes.containerWrapper}`}>
-                <Drawer
+            <div
+                className={`container-wrapper ${classes.containerWrapper}`}
+            >
+                {/* <Drawer
                     className={classes.drawer}
                     variant={'permanent'}
                     className={classNames({
@@ -461,10 +568,7 @@ class RenderHTML extends Component {
                         ${classes.drawerContent}`
                     }
                     >
-                        {/* { drawer
-                            ? <PdpLogo/>
-                            : <PdpMiniLogo/>
-                        } */}
+                        logo here
                     </div>
                     <Divider/>
                     <List className={classes.drawerList}>
@@ -569,10 +673,10 @@ class RenderHTML extends Component {
                             </Tooltip>
                         </Grid>
                     </div>
-                </Drawer>
+                </Drawer> */}
                 <CssBaseline/>
                 <div className={classes.mainApp}>
-                    <AppBar
+                    {/*<AppBar
                         color={'inherit'}
                         position={'static'}
                         className={classNames(classes.drawerAppBar, {
@@ -600,7 +704,7 @@ class RenderHTML extends Component {
                                 </IconButton>
                             </Box>
                         </Toolbar>
-                    </AppBar>
+                    </AppBar> */}
                     { /* <div className={'header'}>
                         <div className={'author-name'}>
                             Alex
@@ -725,7 +829,6 @@ class RenderHTML extends Component {
                                             container
                                             className={classes.userListContainer}
                                         >
-                                            <div/>
                                             <List className={classes.listUser}>
                                                 {messages.map(({id, primary, secondary, person}, i) => (
                                                     <React.Fragment key={i}>
@@ -764,35 +867,56 @@ class RenderHTML extends Component {
                                                         <Divider/>
                                                     </React.Fragment>
                                                 ))}
-                                                <div className={'demo'}></div>
+                                                <ListItem button>
+                                                    <ListItemAvatar>
+                                                        <Skeleton 
+                                                            variant={'circle'} 
+                                                            width={50} 
+                                                            height={50} 
+                                                        />
+                                                    </ListItemAvatar>
+                                                    <ListItemText
+                                                        primary={
+                                                            <Skeleton variant={'text'} />
+                                                        }
+                                                        secondary={
+                                                            <React.Fragment>
+                                                                <Skeleton variant={'text'} />
+                                                                <Skeleton width={'60%'} />
+                                                            </React.Fragment>
+                                                        }
+                                                    />
+                                                </ListItem>
                                             </List>
                                         </Grid>
                                     </div>
                                 </div>
                                 <div className={'p-0 col-md-5'}>
                                     <div className={'chat-area-container'}>
-                                        <ListSlider
-                                            classes={classes}
-                                        />
                                         <div className={'chat-area-header'}>
                                             <div className={'chat-area-header-status'}>
                                                 <div className={'header-status-title'}>
-                                                    create carousel with bootstap and JQuery
+                                                    <ListSlider
+                                                        classes={classes}
+                                                    />
                                                 </div>
-                                                <div className={'header-status-rating'}>
+                                                <div 
+                                                    className={`header-status-rating ${classes.headerStatus}`}
+                                                >
                                                     <h6 className={'status-text'}>
-                                                        user rating
+                                                        Create Auto Completed Word Input, and
+                                                        write style and you know, pretty stransition
+                                                        for each of Completed words.
                                                     </h6>
                                                     <div className={'status-bar'}>
-                                                        15%
+                                                        <Typography className={classes.statusBar}>
+                                                            15%
+                                                        </Typography>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className={'chat-area-header-slider'}>
-                                                slider here
-                                            </div>
                                         </div>
-                                        <div className={'chat-area-main-container'}>
+                                        <div className={classes.chatAreaMainContainer}>
                                             <div className={'chat-message'}>
                                                 <div className={'chat-message-profile'}>
                                                     <div className={'chat-message-image'}>
@@ -815,27 +939,43 @@ class RenderHTML extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={'chat-area-footer-input'}>
+                                        <div className={classes.chatAreaFooterForm}>
                                             <div className={'chat-footer-content'}>
                                                 <div className={'chat-footer-item'}>
-                                                    camera
+                                                    <IconButton size={'small'}>
+                                                        <CameraIcon/>
+                                                    </IconButton>
                                                 </div>
                                                 <div className={'chat-footer-item'}>
-                                                    images
+                                                    <IconButton size={'small'}>
+                                                        <GalleryIcon/>
+                                                    </IconButton>
                                                 </div>
                                                 <div className={'chat-footer-item'}>
-                                                    someone
+                                                    <IconButton size={'small'}>
+                                                        <AddCircleIcon/>
+                                                    </IconButton>
                                                 </div>
                                                 <div className={'chat-footer-item'}>
-                                                    send file
+                                                    <IconButton size={'small'}>
+                                                        <SendFileIcon/>
+                                                    </IconButton>
                                                 </div>
                                             </div>
                                             <div className={'chat-footer-input'}>
-                                                <input/>
+                                                <TextField
+                                                    label={'send message here'}
+                                                    className={classes.chatInput}
+                                                    margin={'dense'}
+                                                    variant={'outlined'}
+                                                    multiline
+                                                />
                                             </div>
                                             <div className={'chat-footer-content'}>
-                                                <div className={'chat-footer-item'}>
-                                                    emoji
+                                                <div className={'chat-footer-item chat-emoji'}>
+                                                    <IconButton size={'small'}>
+                                                        <EmojiIcon/>
+                                                    </IconButton>
                                                 </div>
                                             </div>
                                         </div>

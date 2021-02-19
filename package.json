@@ -19,6 +19,7 @@
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.16.1",
     "emoji-list": "^1.0.2",
+    "emoji-mart": "^3.0.0",
     "faker": "^5.3.1",
     "jquery": "^3.5.1",
     "material-colors": "^1.2.6",
