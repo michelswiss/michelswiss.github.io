@@ -14,7 +14,7 @@ function generateTask(sortId) {
         fakeResult.push({
             id: sort,
             file: setFile(),
-            text: lorem >= 1 ? lorem : "Ok. please wait!",
+            text: lorem.length >= 1 ? lorem : "Ok. please wait!",
             date: new Date()
         });
     }
@@ -38,7 +38,8 @@ function createFakeUser(count) {
                     id: uuid(),
                     exercise: "Create Login Page with Material UI Components",
                     completed: false,
-                    rating: 2.5,
+                    rating: faker.random.number(5) + '.' + faker.random.number(5),
+                    notification: faker.random.number(10),
                     messages: generateTask(userId)
                 },
                 {
@@ -46,7 +47,8 @@ function createFakeUser(count) {
                     id: uuid(),
                     exercise: "Create Login Page with Material UI Components",
                     completed: true,
-                    rating: 2.5,
+                    rating: faker.random.number(5) + '.' + faker.random.number(5),
+                    notification: faker.random.number(10),
                     messages: generateTask(userId)
                 },
                 {
@@ -54,7 +56,8 @@ function createFakeUser(count) {
                     id: uuid(),
                     exercise: "Create Login Page with Material UI Components",
                     completed: true,
-                    rating: 2.5,
+                    rating: faker.random.number(5) + '.' + faker.random.number(5),
+                    notification: faker.random.number(10),
                     messages: generateTask(userId)
                 },
                 {
@@ -62,11 +65,12 @@ function createFakeUser(count) {
                     id: uuid(),
                     exercise: "Create Login Page with Material UI Components",
                     completed: false,
-                    rating: 2.5,
+                    rating: faker.random.number(5) + '.' + faker.random.number(5),
+                    notification: faker.random.number(10),
                     messages: generateTask(userId)
                 }
             ],
-            support: faker.random.number(32) % 3 ? generateTask(userId) : false
+            support: faker.random.number(32) % 7 ? generateTask(userId) : false
             /* tasks: [
                 {
                     number: "5",

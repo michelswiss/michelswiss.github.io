@@ -4,12 +4,16 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import TemplatePage from './TemplatePage';
 import DashboardRoot from './DashboardRoot';
 import DashboardRoute from './DashboardRoute';
+import users from '../users-base/users';
 
 class App extends Component {
+    static defaultProps = {
+        users: users
+    }
     constructor(props) {
         super(props);
         this.state = {
-            drawerStatus: window.localStorage.getItem("drawerStatus")
+            drawerStatus: window.localStorage.getItem("drawerStatus") || true,
         }
         this.changeDrawerStatus = this.changeDrawerStatus.bind(this);
     }
@@ -29,6 +33,7 @@ class App extends Component {
         window.localStorage.setItem("drawerStatus", drawerStatus);
     }
     render() {
+        const _user_base_ = this.props.users;
         const { drawerStatus } = this.state;
             /**
              * @update
@@ -64,6 +69,7 @@ class App extends Component {
                                                     listArea={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />
@@ -79,12 +85,13 @@ class App extends Component {
                                                     chatMain={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />
                                         <Route
                                             exact
-                                            path={'/dashboard/mentor/hometask/:exerciseId'}
+                                            path={'/dashboard/mentor/hometask/:userId'}
                                             render={routeProps => 
                                                 <DashboardRoute
                                                     {...routeProps}
@@ -94,12 +101,13 @@ class App extends Component {
                                                     chatMain={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />
                                         <Route
                                             exact
-                                            path={'/dashboard/mentor/hometask/:exerciseId/:userId'}
+                                            path={'/dashboard/mentor/hometask/:userId/:exerciseId'}
                                             render={routeProps => 
                                                 <DashboardRoute
                                                     {...routeProps}
@@ -109,6 +117,7 @@ class App extends Component {
                                                     chatMain
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />
@@ -123,6 +132,7 @@ class App extends Component {
                                                     listArea={false}
                                                     areaCategory={"chat"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />
@@ -137,6 +147,7 @@ class App extends Component {
                                                     listArea={false}
                                                     areaCategory={"chat"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
+                                                    users={_user_base_}
                                                 />
                                             }
                                         />

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 
 class ChatAreaMain extends Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
+        const { history, match } = this.props;
         return (
             <div className={'chat-message'}>
                 <div className={'chat-message-profile'}>

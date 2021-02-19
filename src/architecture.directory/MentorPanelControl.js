@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import users from '../users-base/users';
 import UsersList from './UsersList';
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -98,13 +97,14 @@ const styles = theme => ({
 });
 
 function MentorPanelControl(props) {
-    const {classes, history, submitCloseDrawer } = props;
+    const {classes, history, submitCloseDrawer, match, users} = props;
     const [filter, changeFilter] = useState(false);
     const [panel, pushPanel] = useState(0);
     const [filterType, setFilterType] = useState('hometask');
     const [pathLocation, pushPathLocation ] = useState('hometask');
     const [searchValue, changeSearchValue] = useState("");
     const [searchResult, setSearchResult] = useState([]);
+    const [focusId, pushFocus] = useState("");
     const handleToggleFilter = () => {
         console.log(filter);
         changeFilter(!filter);
@@ -127,22 +127,19 @@ function MentorPanelControl(props) {
             pushPanel(1);
             setFilterType("chat");
         }
+        match.params.userId && pushFocus(match.params.userId);
     }, [history.location.pathname]);
-    const people = [
-        "google",
-        "facebook",
-        "fake",
-        "googleplus",
-        "twitter"
-    ]
     useEffect(() => {
+        /**@listen works for eachof user */
         const result = users.filter(user => 
             user.name.toLowerCase().includes(searchValue.toLowerCase())
         );
+        /**@return set default all users || search result here */
         setSearchResult(result);
     }, [searchValue]);
     return (
         <div className={'users-list-area'}>
+            {/** @update create new component for this tabPanel for optimzing this section */}
             <div className={classes.tabPanelControl}>
                 <div className={classes.tabPanel}>
                     <AppBar
@@ -224,36 +221,36 @@ function MentorPanelControl(props) {
                 className={classes.userListContainer}
             >
                 <List className={classes.listUser}>
-                    {/* {searchResult.map(item => (
-                        <li>{item}</li>
-                    ))} */}
                     <UsersList
+                        focus={focusId}
                         userStatus={searchResult}
                         type={filterType}
                         localization={pathLocation}
                         history={history}
                         submitCloseDrawer={submitCloseDrawer}
                     />
-                    <ListItem button>
-                        <ListItemAvatar>
-                            <Skeleton
-                                variant={'circle'}
-                                width={50}
-                                height={50}
-                            />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={
-                                <Skeleton variant={'text'} />
-                            }
-                            secondary={
-                                <React.Fragment>
+                    {Array(3).fill(null).map(() => (
+                        <ListItem button>
+                            <ListItemAvatar>
+                                <Skeleton
+                                    variant={'circle'}
+                                    width={50}
+                                    height={50}
+                                />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={
                                     <Skeleton variant={'text'} />
-                                    <Skeleton width={'60%'} />
-                                </React.Fragment>
-                            }
-                        />
-                    </ListItem>
+                                }
+                                secondary={
+                                    <React.Fragment>
+                                        <Skeleton variant={'text'} />
+                                        <Skeleton width={'60%'} />
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+                    ))}
                 </List>
             </Grid>
         </div>

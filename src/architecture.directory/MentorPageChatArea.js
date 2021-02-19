@@ -53,13 +53,19 @@ const styles = theme => ({
 
 class MentorPageChatArea extends Component{
     render() {
-        const { classes, listArea, chatMain } = this.props;
+        const { classes, listArea, chatMain, history, match, users} = this.props;
         return (
             <div className={'chat-area-container'}>
                 <div className={'chat-area-header'}>
                     <div className={'chat-area-header-status'}>
                         <div className={'header-status-title'}>
-                            {listArea && <ChatAreaListPanel/>}
+                            {listArea && (
+                                <ChatAreaListPanel
+                                    users={users}
+                                    history={history}
+                                    match={match}
+                                />
+                            )}
                         </div>
                         <div
                             className={`header-status-rating ${classes.headerStatus}`}
@@ -78,11 +84,16 @@ class MentorPageChatArea extends Component{
                     </div>
                 </div>
                 <div className={classes.chatAreaMainContainer}>
-                    { chatMain && <ChatAreaMain/>}
+                    { chatMain && (
+                        <ChatAreaMain
+                            history={history}
+                            match={match}
+                        />
+                    )}
                 </div>
                 { chatMain && (
                     <ChatAreaFooterForm
-                        classes={classes}
+                        
                     />
                 )}
             </div>

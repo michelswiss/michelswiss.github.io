@@ -54,13 +54,13 @@ function MentorPanelChild(props) {
         classes,
         id, 
         name,
-        phoneNumber,
         profile,
         tasks,
         history,
         submitCloseDrawer,
         notification,
-        pathLocation
+        pathLocation,
+        active
      } = props;
     const handlePushTasksPage = () => {
         history.push(`/dashboard/mentor/${pathLocation === "hometask" ? "hometask" : "chat"}/${id}`);
@@ -81,9 +81,10 @@ function MentorPanelChild(props) {
             button
             key={id}
             className={
-                `${classes.listUserItem}`
+                `${classes.listUserItem}
+                ${active && classes.listUserItemActive}
+                `
             }
-            // ${3 === 3 && classes.listUserItemActive}
             onClick={() => handlePushTasksPage()}
         >
             <ListItemAvatar>
@@ -97,21 +98,22 @@ function MentorPanelChild(props) {
                 /* shuld uppercase: userListText */
                 primary={name}
                 secondary={
-                    <React.Fragment>
-                        <Badge
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right'
-                            }}
-                            style={{display: `${notification > 0 ? 'block' : 'none'}`}}
-                            color={'secondary'}
-                            badgeContent={notification}
-                            className={classes.userBadge}
-                        >
-                            {lastMessage}
-                        </Badge>
-                        {notification <= 0 && lastMessage}
-                    </React.Fragment>
+                    notification > 0 ? (
+                        <React.Fragment>
+                            <Badge
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right'
+                                }}
+                                style={{display: `${notification > 0 ? 'block' : 'none'}`}}
+                                color={'secondary'}
+                                badgeContent={notification}
+                                className={classes.userBadge}
+                            >
+                                {lastMessage}
+                            </Badge>
+                        </React.Fragment>
+                    ) : lastMessage
                 }
             />
         </ListItem>

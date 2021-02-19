@@ -66,7 +66,8 @@ class DashboardRoute extends PureComponent {
             listArea,
             areaCategory,
             children,
-            changeDrawerStatus
+            changeDrawerStatus,
+            users
         } = this.props;
         const drawer = drawerStatus === "open";
         console.log(drawer)
@@ -81,8 +82,10 @@ class DashboardRoute extends PureComponent {
                 >
                     <div className={'row'}>
                         <div className={'p-0 tab-section-control'}>
-                            <MentorPanelControl 
+                            <MentorPanelControl
+                                users={users}
                                 history={this.props.history}
+                                match={this.props.match}
                                 submitCloseDrawer={changeDrawerStatus}
                             />
                         </div>
@@ -91,8 +94,11 @@ class DashboardRoute extends PureComponent {
                             { children }
                             {chatArea && ( 
                                 <MentorPageChatArea
+                                    users={users}
                                     listArea={this.props.listArea}
                                     chatMain={this.props.chatMain}
+                                    history={this.props.history}
+                                    match={this.props.match}
                                 />
                             )}
                         </div>

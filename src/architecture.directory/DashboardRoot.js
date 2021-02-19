@@ -18,9 +18,6 @@ const styles = theme => ({
 class DashboardRoot extends Component{
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
     }
     componentDidMount() {
         console.log('DASHBOARD ROOT HERE');

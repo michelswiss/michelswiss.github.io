@@ -94,12 +94,13 @@ const styles = theme => ({
     },
 });
 
-function ChatAreaListPanel({classes }) {
+function ChatAreaListPanel({classes, users, match, history}) {
     const defaultScroll = 100;
     const defaultScrollX = -100;
     const listRef = useRef(null);
     const [transformAnchorX, pushTransformAnchorX] = useState(0);
     const [scrollAnchorEl, pushScrollAnchorEl] = useState(400);
+    const [modules, setModules] = useState([]);
     /**
      *  const [disable, pushDisable] = useState("prev");
      *  Why we use push here?
@@ -115,7 +116,8 @@ function ChatAreaListPanel({classes }) {
         let _scrollWidth = listRef.current.scrollWidth;
         let coniformScrollX = listRef.current.style.transform;
         let disableScroll = Number(coniformScrollX.slice(11, -3));
-        let _scrollWidthX = ((-0) - (_scrollWidth - 280));
+        /**@default scrollWidth atan -280 */
+        let _scrollWidthX = ((-0) - (_scrollWidth - 320));
         // modify this logic
         //console.log(scrollOffset + ' === ' + defaultScroll + ' ' + coniformScrollX);
         // if scroll offset translate = 0 && scrollOffset === 100
@@ -190,6 +192,14 @@ function ChatAreaListPanel({classes }) {
         console.log('this is new state', transformAnchorX);
         listRef.current.style.transform = `translateX(${transformAnchorX}px)`;
     }, [transformAnchorX])
+    useEffect(() => {
+        console.log('CHAT LIST PANEL USE EFFECT LOCATION HERE');
+        const user = users.find((user) => user.id === match.params.userId);
+        setModules(user.tasks);
+    }, [history.location.pathname]);
+    const pushDocumentLocationChatMain = (exerciseId) => {
+        history.push(`/dashboard/mentor/hometask/${match.params.userId}/${exerciseId}`);
+    }
     return (
         <React.Fragment>
             <Box
@@ -204,16 +214,19 @@ function ChatAreaListPanel({classes }) {
                     alignItems={'center'}
                 >
                     <GridList className={classes.gridList}>
+                        {console.log(modules)}
                         {
-                            Array(10).fill(null).map((item, i) => (
+                            modules.map(({number, id, rating, notification}) => (
                                 <Card
-                                    key={i}
+                                    key={id}
                                     className={classes.listCard}
                                 >
-                                    <CardActionArea>
+                                    <CardActionArea
+                                        onClick={() => pushDocumentLocationChatMain(id)}
+                                    >
                                         <CardMedia className={classes.cardMedia}>
                                             <Typography variant={'h6'}>
-                                                {i}
+                                                {number}
                                             </Typography>
                                         </CardMedia>
                                         <CardContent className={classes.cardContent}>
@@ -224,19 +237,25 @@ function ChatAreaListPanel({classes }) {
                                                 gutterBottom
                                                 variant={'subtitle2'}
                                             >
-                                                5
+                                                {rating}
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>
                                     <CardActions className={classes.cardActions}>
-                                        <Badge
-                                            color={'secondary'}
-                                            badgeContent={9}
-                                        >
+                                        {notification > 0 ? (
+                                            <Badge
+                                                color={'secondary'}
+                                                badgeContent={notification}
+                                            >
+                                                <Typography>
+                                                    HARD
+                                                </Typography>
+                                            </Badge>  
+                                        ) : (
                                             <Typography>
                                                 HARD
                                             </Typography>
-                                        </Badge>
+                                        )}
                                     </CardActions>
                                 </Card>
                             ))
