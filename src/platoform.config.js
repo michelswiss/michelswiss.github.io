@@ -36,7 +36,7 @@
  * 
  * update function
  * update codes design pattern
- * update function uptimazing
+ * update function optimizing
  * update codes error in console
  */
 

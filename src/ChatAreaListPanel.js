@@ -1,20 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
+import Badge from '@material-ui/core/Badge';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import GridList from '@material-ui/core/GridList';
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import StarIcon from '@material-ui/icons/Grade';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import StarIcon from '@material-ui/icons/Grade';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -79,10 +79,12 @@ const styles = theme => ({
         }
     },
     stepperStart: {
+        border: '2px solid #f8f8f8',
         width: '100px',
         backgroundColor: 'rgb(0 0 0 / 4%)'
     },
     stepperEnd: {
+        border: '2px solid #f8f8f8',
         width: '100px',
         backgroundColor: 'rgb(0 0 0 / 4%)'
     },
@@ -92,15 +94,27 @@ const styles = theme => ({
     gridListStepperButton: {
         border: '2px solid #f8f8f8'
     },
+    activeListCard: {
+        '& button': {
+            backgroundColor: '#00b533',
+            color: '#fff'
+        }
+    },
+    activeCardActions: {
+        color: '#fff',
+        backgroundColor: '#019a2c'
+    },
+    starDisable: {
+        color: '#f50057 !important'
+    }
 });
 
-function ChatAreaListPanel({classes, users, match, history}) {
+function ChatAreaListPanel({classes, user, match, modules, history}) {
     const defaultScroll = 100;
     const defaultScrollX = -100;
     const listRef = useRef(null);
     const [transformAnchorX, pushTransformAnchorX] = useState(0);
     const [scrollAnchorEl, pushScrollAnchorEl] = useState(400);
-    const [modules, setModules] = useState([]);
     /**
      *  const [disable, pushDisable] = useState("prev");
      *  Why we use push here?
@@ -121,7 +135,6 @@ function ChatAreaListPanel({classes, users, match, history}) {
         // modify this logic
         //console.log(scrollOffset + ' === ' + defaultScroll + ' ' + coniformScrollX);
         // if scroll offset translate = 0 && scrollOffset === 100
-        console.log(_scrollWidth, coniformScrollX);
         if(scrollOffset === 0) {
             // if our disable scroll position equals or big > 0
             localScroll = 0;
@@ -131,7 +144,6 @@ function ChatAreaListPanel({classes, users, match, history}) {
             //console.log(coniformScrollX.includes('(0px)'));
             if(disableScroll >= 0 && scrollOffset === defaultScroll) {
                 localScroll = 0;
-                console.log('scrollOffsetX is => (X)')
             }
             else if (scrollOffset < defaultScroll) {
                 if (!(disableScroll <= _scrollWidthX)) {
@@ -189,14 +201,8 @@ function ChatAreaListPanel({classes, users, match, history}) {
         return even;
     }
     useEffect(() => {
-        console.log('this is new state', transformAnchorX);
         listRef.current.style.transform = `translateX(${transformAnchorX}px)`;
     }, [transformAnchorX])
-    useEffect(() => {
-        console.log('CHAT LIST PANEL USE EFFECT LOCATION HERE');
-        const user = users.find((user) => user.id === match.params.userId);
-        setModules(user.tasks);
-    }, [history.location.pathname]);
     const pushDocumentLocationChatMain = (exerciseId) => {
         history.push(`/dashboard/mentor/hometask/${match.params.userId}/${exerciseId}`);
     }
@@ -214,12 +220,15 @@ function ChatAreaListPanel({classes, users, match, history}) {
                     alignItems={'center'}
                 >
                     <GridList className={classes.gridList}>
-                        {console.log(modules)}
                         {
-                            modules.map(({number, id, rating, notification}) => (
+                            modules.map(({number, id, rating, notification, completed}) => (
                                 <Card
                                     key={id}
-                                    className={classes.listCard}
+                                    className={
+                                        `${classes.listCard}
+                                        ${match.params.exerciseId === id && classes.activeListCard}
+                                        `
+                                    }
                                 >
                                     <CardActionArea
                                         onClick={() => pushDocumentLocationChatMain(id)}
@@ -231,18 +240,28 @@ function ChatAreaListPanel({classes, users, match, history}) {
                                         </CardMedia>
                                         <CardContent className={classes.cardContent}>
                                             <Box>
-                                                <StarIcon/>
+                                                <StarIcon 
+                                                    className={`${completed ? '' : classes.starDisable}`}
+                                                />
                                             </Box>
-                                            <Typography
-                                                gutterBottom
-                                                variant={'subtitle2'}
-                                            >
-                                                {rating}
-                                            </Typography>
+                                            { completed && (
+                                                <Typography
+                                                    gutterBottom
+                                                    variant={'subtitle2'}
+                                                >
+                                                    {rating}
+                                                </Typography>
+                                            )}
                                         </CardContent>
                                     </CardActionArea>
-                                    <CardActions className={classes.cardActions}>
-                                        {notification > 0 ? (
+                                    <CardActions 
+                                        className={
+                                            `${classes.cardActions}
+                                            ${match.params.exerciseId === id && classes.activeCardActions}
+                                            `
+                                        }
+                                    >
+                                        {notification > 0 && completed ? (
                                             <Badge
                                                 color={'secondary'}
                                                 badgeContent={notification}

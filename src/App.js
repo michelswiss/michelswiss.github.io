@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import React, { PureComponent } from 'react';
+import { Switch, Route } from 'react-router-dom';
+/**
+ * import { TransitionGroup, CSSTransition } from 'react-transition-group';
+ * for user transition each of Component Boxes
+ */
 import TemplatePage from './TemplatePage';
 import DashboardRoot from './DashboardRoot';
 import DashboardRoute from './DashboardRoute';
-import users from '../users-base/users';
+import users from './users-base/compressed.base';
 
-class App extends Component {
+class App extends PureComponent {
     static defaultProps = {
         users: users
     }
@@ -65,8 +68,6 @@ class App extends Component {
                                                 <DashboardRoute
                                                     {...routeProps}
                                                     drawerStatus={drawerStatus}
-                                                    chatArea={false}
-                                                    listArea={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
                                                     users={_user_base_}
@@ -80,9 +81,6 @@ class App extends Component {
                                                 <DashboardRoute
                                                     {...routeProps}
                                                     drawerStatus={drawerStatus}
-                                                    chatArea={false}
-                                                    listArea={false}
-                                                    chatMain={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
                                                     users={_user_base_}
@@ -98,7 +96,6 @@ class App extends Component {
                                                     drawerStatus={drawerStatus}
                                                     chatArea
                                                     listArea
-                                                    chatMain={false}
                                                     areaCategory={"hometask"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
                                                     users={_user_base_}
@@ -128,8 +125,6 @@ class App extends Component {
                                                 <DashboardRoute
                                                     {...routeProps}
                                                     drawerStatus={drawerStatus}
-                                                    chatArea
-                                                    listArea={false}
                                                     areaCategory={"chat"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
                                                     users={_user_base_}
@@ -144,7 +139,7 @@ class App extends Component {
                                                     {...routeProps}
                                                     drawerStatus={drawerStatus}
                                                     chatArea
-                                                    listArea={false}
+                                                    chatMain
                                                     areaCategory={"chat"}
                                                     changeDrawerStatus={this.changeDrawerStatus}
                                                     users={_user_base_}
@@ -182,120 +177,4 @@ class App extends Component {
     }
 }
 
-function DashboardMain(props) {
-    return (
-        <div>
-            <h3>this is global main page works for all component</h3>
-            <h3>Go to mentor page</h3>
-            <Link to={'/dashboard/mentor'}>click here</Link>
-            <h3>Go to homework</h3>
-            <Link to={'/dashboard/mentor/hometask'}>click here</Link>
-            <h3>Go to chat</h3>
-            <Link to={'/dashboard/mentor/chat'}>click here</Link>
-            <h3>Go to homework exercise and message </h3>
-            <Link to={'/dashboard/mentor/hometask/123456789/1234567889'}>click here</Link>
-            <h3>Go to chat user</h3>
-            <Link to={'/dashboard/mentor/chat/123456789'}>click here</Link>
-        </div>
-    )
-}
-
 export default App;
-
-                         {/* <Route
-                            exact
-                            path={'/dashboard/mentor'}
-                            render={routeProps =>
-                                <DashboardRoot
-                                    {...routeProps}
-                                    drawerStatus={drawerStatus}
-                                    changeDrawerStatus={this.changeDrawerStatus}
-                                >
-                                    <DashboardRoute
-                                        {...routeProps}
-                                        drawerStatus={drawerStatus}
-                                    >
-                                        <Switch>
-                                            <Route
-                                                exact
-                                                path={'/'}
-                                                render={routeProps =>
-                                                    <DashboardMain
-                                                        {...routeProps}
-                                                    />
-                                                }
-                                            />
-                                            <Route
-                                                exact
-                                                path={'/dashboard/mentor/hometask'}
-                                                render={routeProps => 
-                                                    <DashboardRoute
-                                                        {...routeProps}
-                                                        chatArea={true}
-                                                        listArea={true}
-                                                        areaCategory={"hometask"}
-                                                    />
-                                                }
-                                            />
-                                            <Route
-                                                exact
-                                                path={'/dashboard/mentor/chat'}
-                                                render={routeProps =>
-                                                    <div>
-                                                        chat
-                                                    </div>
-                                                }
-                                            />
-                                            <Route
-                                                exact
-                                                path={'/dashboard/mentor/homework/:userId'}
-                                                render={routeProps =>
-                                                    <div>
-                                                        homework userId
-                                                    </div>
-                                                }
-                                            />
-                                            <Route
-                                                exact
-                                                path={'/dashboard/mentor/homework/:userId/:exerciseId'}
-                                                render={routeProps =>
-                                                    <div>
-                                                        homework userId exerciseId
-                                                    </div>
-                                                }
-                                            />
-                                            <Route
-                                                exact
-                                                path={'/dashboard/mentor/chat/:userId/'}
-                                                render={routeProps =>
-                                                    <div>
-                                                        chat userId
-                                                    </div>
-                                                }
-                                            />
-                                        </Switch>
-                                    </DashboardRoute>
-                                </DashboardRoot>
-                            }
-                         /> */}
-                        {/* <Route
-                            exact
-                            path={'/dashboard'}
-                            render={routeProps =>
-                                <DashboardRoot
-                                    {...routeProps}
-                                    drawerStatus={drawerStatus}
-                                    changeDrawerStatus={this.changeDrawerStatus}
-                                />
-                            }
-                        />
-                        <Route
-                            exact
-                            path={'/'}
-                            render={routeProps =>
-                                <TemplatePage
-                                    {...routeProps}
-                                />
-                            }
-                        />
-                        <Redirect exact from={'*'} to={'/'}/> */}

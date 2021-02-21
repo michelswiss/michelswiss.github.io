@@ -11,36 +11,7 @@ import Badge from '@material-ui/core/Badge';
 import { drawerWidth } from './styles/drawerWidth';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-    drawerAppBar: {
-        boxShadow: 'none',
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        })
-    },
-    drawerAppBarShift: {
-        boxShadow: 'none !important',
-        width: `calc(100% - 70px)`,
-        marginLeft: '70px !important',
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        })
-    },
-    box: {
-        marginLeft: 'auto'
-    },
-    authorAvatar: {
-        padding: '10px'
-    },
-    authorName: {
-        flexGrow: 1
-    },
-})
+import styles from './styles/DrawerNavBarStyles';
 
 class DrawerNavBar extends Component {
     constructor(props) {

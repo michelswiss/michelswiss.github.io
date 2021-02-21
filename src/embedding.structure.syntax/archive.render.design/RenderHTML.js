@@ -60,20 +60,6 @@ import GalleryIcon from '@material-ui/icons/Image';
 import AddCircleIcon from '@material-ui/icons/AddCircleOutline';
 import SendFileIcon from '@material-ui/icons/Description';
 import EmojiIcon from '@material-ui/icons/Mood';
-// import dataEmoji from 'emoji-mart/data/google.json';
-// import { Picker } from "emoji-mart";
-// import "emoji-mart/css/emoji-mart.css";
-/*
-
-<Picker
-    onSelect={this.savePalette}
-    title={'Pick a Palette Emoji'}
-    set={'google'}
-    data={dataEmoji}
-/>
-
-emoji.native
-*/
 import Skeleton from '@material-ui/lab/Skeleton';
 import './skeleton.css';
 import { withStyles } from '@material-ui/core/styles';

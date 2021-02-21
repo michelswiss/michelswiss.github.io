@@ -1,33 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import DrawerNavBar from "./DrawerNavBar";
 import DrawerCore from './Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.css';
+import styles from './styles/DashboardRootStyles';
 
-const drawerWidth = 240 //70;
-const styles = theme => ({
-    containerWrapper: {
-        overflow: 'hidden'
-    },
-    mainApp: {
-        width: '100vw'
-    }
-});
-
-class DashboardRoot extends Component{
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount() {
-        console.log('DASHBOARD ROOT HERE');
-    }
+class DashboardRoot extends PureComponent{
     render() {
         const { 
             classes,
             children,
             changeDrawerStatus,
-            drawerStatus
+            drawerStatus,
         } = this.props;
         const drawer = true;
         return (
@@ -35,12 +20,15 @@ class DashboardRoot extends Component{
                 className={`container-wrapper ${classes.containerWrapper}`}
             >
                 <DrawerCore
+                    history={this.props.history}
                     status={drawerStatus}
                     handleChangeDrawerStatus={changeDrawerStatus}
                 />
                 <CssBaseline/>
                 <div className={classes.mainApp}>
-                    <DrawerNavBar status={drawerStatus}/>
+                    <DrawerNavBar
+                        status={drawerStatus}
+                    />
                     {children}
                 </div>
             </div>

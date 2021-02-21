@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import IconButton from "@material-ui/core/IconButton";
 import CameraIcon from "@material-ui/icons/LinkedCamera";
 import GalleryIcon from "@material-ui/icons/Image";
@@ -6,45 +6,17 @@ import AddCircleIcon from "@material-ui/icons/AddCircleOutline";
 import SendFileIcon from "@material-ui/icons/Description";
 import TextField from "@material-ui/core/TextField";
 import EmojiIcon from "@material-ui/icons/Mood";
+import dataEmoji from 'emoji-mart/data/facebook.json';
+import { Picker } from 'emoji-mart';
 import { withStyles } from '@material-ui/core/styles';
-
-const styles = theme => ({
-    chatAreaFooterForm: {
-        display: 'flex',
-        borderTop: '2px solid #eef2f4',
-        width: '100%',
-        padding: '10px 20px',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: '#fff',
-        position: 'sticky',
-        bottom: 0,
-        left: 0,
-        '& .chat-footer-content': {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            '& .chat-footer-item': {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginLeft: '10px'
-            },
-            '& .chat-emoji': {
-                marginLeft: '20px'
-            }
-        },
-        '& .chat-footer-input': {
-            width: '80%',
-        }
-    },
-    chatInput: {
-        width: '100%',
-        marginLeft: '10px'
-    }
-});
+import 'emoji-mart/css/emoji-mart.css';
+import styles from './styles/ChatAreaFooterFormStyles';
 
 function ChatAreaFooterForm({classes}) {
+    const [emojiDialog, openEmojiDialog] = useState(true);
+    const toggleDialog = () => {
+        openEmojiDialog(!emojiDialog);
+    }
     return (
         <div className={classes.chatAreaFooterForm}>
             <div className={'chat-footer-content'}>
@@ -80,10 +52,24 @@ function ChatAreaFooterForm({classes}) {
             </div>
             <div className={'chat-footer-content'}>
                 <div className={'chat-footer-item chat-emoji'}>
-                    <IconButton size={'small'}>
+                    <IconButton 
+                        size={'small'}
+                        onClick={() => toggleDialog()}
+                    >
                         <EmojiIcon/>
                     </IconButton>
                 </div>
+            </div>
+            <div 
+                className={classes.charAreaEmojiDialog}
+                style={{display: emojiDialog ? 'none' : 'block'}}
+            >
+                <Picker
+                    onSelect={(emoji) => {console.log(emoji)}}
+                    title={'PDP Emoji'}
+                    set={'facebook'}
+                    data={dataEmoji}
+                />
             </div>
         </div>
     )

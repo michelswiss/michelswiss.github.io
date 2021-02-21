@@ -176,38 +176,3 @@ class Slides extends Component {
 }
 export default Slides;
 
-/*
-
-                                        <div className={'rating'}>
-                                            <h5>1</h5>
-                                            <div className={'rating-star'}>
-                                                <IconButton button>
-                                                    <StarIcon/>
-                                                </IconButton>
-                                                <span>4</span>
-                                            </div>
-                                            <h6>easy</h6>
-                                        </div>
-                                        <div className={'rating'}>
-                                            <h5>1</h5>
-                                            <div className={'rating-star'}>
-                                                <IconButton button>
-                                                    <StarIcon/>
-                                                </IconButton>
-                                                <span>4</span>
-                                            </div>
-                                            <h6>easy</h6>
-                                        </div>
-                                        <div className={'rating'}>
-                                            <h5>1</h5>
-                                            <div className={'rating-star'}>
-                                                <IconButton button>
-                                                    <StarIcon/>
-                                                </IconButton>
-                                                <span>4</span>
-                                            </div>
-                                            <h6>easy</h6>
-                                        </div>
-
- */
-

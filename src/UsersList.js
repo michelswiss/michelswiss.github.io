@@ -3,14 +3,13 @@ import MentorPanelChild from './MentorPanelChild';
 import Divider from '@material-ui/core/Divider';
 import { withStyles } from '@material-ui/core/styles';
 
-function UsersList({userStatus, type, localization, history, submitCloseDrawer, focus}) {
-    console.log('USER LIST HERE')
+function UsersList({userStatus, type, localization, match, history, submitCloseDrawer}) {
     return (
         <React.Fragment>
             {userStatus.map((user, i) => {
                 if(type === "hometask") {
                     return (
-                        <React.Fragment>
+                        <React.Fragment key={i + 10}>
                             {i === 0 && <Divider/>}
                             <MentorPanelChild
                                 id={user.id}
@@ -19,7 +18,7 @@ function UsersList({userStatus, type, localization, history, submitCloseDrawer, 
                                 history={history}
                                 submitCloseDrawer={submitCloseDrawer}
                                 pathLocation={localization}
-                                active={focus === user.id}
+                                active={match.params.userId === user.id}
                             />
                             <Divider/>
                         </React.Fragment>
@@ -27,7 +26,7 @@ function UsersList({userStatus, type, localization, history, submitCloseDrawer, 
                 } else  if (type === "chat") {
                     if(user.support) {
                         return (
-                            <React.Fragment>
+                            <React.Fragment key={i + 10}>
                                 {i === 0 && <Divider/>}
                                 <MentorPanelChild
                                     id={user.id}
@@ -36,7 +35,7 @@ function UsersList({userStatus, type, localization, history, submitCloseDrawer, 
                                     history={history}
                                     submitCloseDrawer={submitCloseDrawer}
                                     pathLocation={localization}
-                                    active={focus === user.id}
+                                    active={match.params.userId === user.id}
                                 />
                                 <Divider/>
                             </React.Fragment>

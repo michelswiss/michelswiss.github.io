@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import classNames from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import PdpLogo from './assets/pdp-logo';
+import PdpMiniLogo from './assets/pdp-mini-logo';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import CoursesIcon from '@material-ui/icons/ViewCarousel';
 import ChatIcon from '@material-ui/icons/Sms';
@@ -21,80 +23,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { drawerWidth } from './styles/drawerWidth';
 import { withStyles } from '@material-ui/core/styles';
+import styles from './styles/DrawerStyles';
 
-const styles = theme => ({
-    drawer: {
-        overflow: 'hidden'
-    },
-    drawerAppBar: {
-        boxShadow: 'none',
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        })
-    },
-    drawerAppBarShift: {
-        boxShadow: 'none !important',
-        width: `calc(100% - 70px)`,
-        marginLeft: '70px !important',
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        })
-    },
-    drawerPaper: {
-        overflowX: 'hidden',
-        width: drawerWidth,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerStatus: {
-        width: '70px !important',
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    drawerContent: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        margin:'4px 2px 4px',
-        padding: '10px 10px'
-    },
-    drawerList: {
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        padding: '5px 5px 2px',
-        paddingBottom: '4rem'
-    },
-    drawerListIcon: {
-        padding: '5px'
-    },
-    listMenu: {
-        marginTop: '5rem'
-    },
-    drawerControlDivider: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: '#fff',
-        border: '1px solid #f8f8f8'
-    },
-    drawerControl: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    toolbar: theme.mixins.toolbar,
-});
-
-class DrawerCore extends Component{
+class DrawerCore extends PureComponent {
     static defaultProps = {
         defaultDuration: 986.6,
         closeDuration: 1165
@@ -107,9 +38,6 @@ class DrawerCore extends Component{
         this.handleSubmitDrawerStatus = this.handleSubmitDrawerStatus.bind(this);
         this.changeDrawerStatusWithMouseEvent = this.changeDrawerStatusWithMouseEvent.bind(this);
         this.closeDrawerWithMouseLeave = this.closeDrawerWithMouseLeave.bind(this);
-    }
-    componentDidMount() {
-        console.log('DASHBOARD DRAWER HERE')
     }
     handleSubmitDrawerStatus() {
         this.props.handleChangeDrawerStatus(
@@ -132,7 +60,6 @@ class DrawerCore extends Component{
         // }, sec);
     }
     componentDidUpdate() {
-        console.log('update drawer status')
         if(this.props.status === "open") {
             this.pushTextStatus(true, 500);
         } else {
@@ -140,14 +67,13 @@ class DrawerCore extends Component{
         }
     }
     render() {
-        const { classes, status } = this.props;
+        const { classes, status, history} = this.props;
         const { showText } = this.state;
         const drawer = status === "open";
         return (
             <Drawer
-                className={classes.drawer}
                 variant={'permanent'}
-                className={classNames({
+                className={classNames(classes.drawer, {
                     [classes.drawerPaper]: drawer,
                     [classes.drawerStatus]: !drawer,
                 })}
@@ -165,10 +91,10 @@ class DrawerCore extends Component{
                     ${classes.drawerContent}`
                 }
                 >
-                    {/* { drawer
-                            ? <PdpLogo/>
-                            : <PdpMiniLogo/>
-                        } */}
+                    { drawer
+                        ? <PdpLogo/>
+                        : <PdpMiniLogo/>
+                    }
                 </div>
                 <Divider/>
                 <List 
@@ -197,6 +123,7 @@ class DrawerCore extends Component{
                     <ListItem
                         button
                         className={classes.drawerListItem}
+                        onClick={() => history.push('/dashboard/mentor')}
                     >
                         <ListItemIcon className={classes.drawerListIcon}>
                             <ChatIcon/>
