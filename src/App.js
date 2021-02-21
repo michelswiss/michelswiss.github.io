@@ -16,7 +16,7 @@ class App extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            drawerStatus: window.localStorage.getItem("drawerStatus") || true,
+            drawerStatus: window.localStorage.getItem("drawerStatus") || "open"
         }
         this.changeDrawerStatus = this.changeDrawerStatus.bind(this);
     }
