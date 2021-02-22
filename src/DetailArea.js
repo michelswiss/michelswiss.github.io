@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-import NotificationSnackbar from './components/NotificationSnackbar';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
@@ -18,6 +18,7 @@ import styles from './styles/DetailAreaStyles';
 
 function DetailArea({classes, fullInfo, user,history, match, detail}) {
     const [star, changeStar] = useState(0);
+    const { enqueueSnackbar } = useSnackbar();
     // const [moduleStatus, setModuleStatus] = useState({});
     // /**@local module state */
     // useEffect(() => {
@@ -28,6 +29,9 @@ function DetailArea({classes, fullInfo, user,history, match, detail}) {
         if(user.support) {
             history.push(`/dashboard/mentor/chat/${userId}`);
         }
+    }
+    const toggleOpenNotification = (variant, message) => {
+        enqueueSnackbar(message, { variant })
     }
     return (
         <div className={classes.detailArea}>
@@ -91,7 +95,7 @@ function DetailArea({classes, fullInfo, user,history, match, detail}) {
                                 variant={'contained'}
                                 color={'static'}
                                 className={`${classes.toButton} ${classes.success}`}
-                                onClick={() => <NotificationSnackbar variant={'success'} message={'successfully rated this user'}/>}
+                                onClick={() => toggleOpenNotification('success','user successfully rated')}
                             >
                                 <AllDoneIcon/>
                             </Button>
@@ -101,6 +105,7 @@ function DetailArea({classes, fullInfo, user,history, match, detail}) {
                                 variant={'contained'}
                                 color={'static'}
                                 className={`${classes.toButton} ${classes.warning}`}
+                                onClick={() => toggleOpenNotification('error','"user fail" request sended')}
                             >
                                 <WarningIcon/>
                             </Button>
@@ -137,4 +142,44 @@ function DetailArea({classes, fullInfo, user,history, match, detail}) {
         </div>         
     )
 }
-export default withStyles(styles)(DetailArea);
+
+function DetailNotification(props) {
+    return (
+        <SnackbarProvider
+            maxSnack={3}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+        >
+            <DetailArea {...props}/>
+        </SnackbarProvider>
+    )
+}
+
+export default withStyles(styles)(DetailNotification);
+/**
+ * everyone i am colt student
+ * how are you today
+ * i am very fine
+ *
+ * class React extends Component {
+ *     constructor(props) {
+ *         super(props)
+ *         this.state = {
+ *             tasks: [
+ *                 { name: "Eat your pizza", id: 1},
+ *                 { name: "Do your homeTasks today", id: 2},
+ *                 { name: "Go to toilet after sleep time", id: 3}
+ *             ]
+ *         }
+ *     }
+ *     render() {
+ *         return (
+ *              <>
+ *                  <h1>This is simple test for my fingers, hmm i dont know actually so last month </h1>
+ *              </>
+ *         )
+ *     }
+ * }
+ */
