@@ -1,4 +1,5 @@
 import React, { useState, useEffect }from 'react';
+import NotificationSnackbar from './components/NotificationSnackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
@@ -90,6 +91,7 @@ function DetailArea({classes, fullInfo, user,history, match, detail}) {
                                 variant={'contained'}
                                 color={'static'}
                                 className={`${classes.toButton} ${classes.success}`}
+                                onClick={() => <NotificationSnackbar variant={'success'} message={'successfully rated this user'}/>}
                             >
                                 <AllDoneIcon/>
                             </Button>
